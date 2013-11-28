@@ -1,0 +1,38 @@
+namespace :deploy do
+  before :finished, 'newrelic:notice_deployment'
+end
+
+namespace :load do
+  task :defaults do
+    set :newrelic_env, fetch(:rack_env, fetch(:rails_env, 'production'))
+    set :newrelic_appname, fetch(:application)
+  end
+end
+
+namespace :newrelic do
+  desc "Record a deployment in New Relic (newrelic.com)"
+  task :notice_deployment do
+    set :newrelic_appname, fetch(:application)
+    run_locally do
+
+      deploy_options = {
+          :environment => fetch(:newrelic_env),
+          :revision => release_timestamp.strip,
+          :changelog => fetch(:newrelic_changelog),
+          :description => fetch(:newrelic_desc),
+          :appname => fetch(:newrelic_appname),
+          :user => capture ('git config user.name').strip,
+          :license_key => fetch(:newrelic_license_key)
+      }
+
+
+      debug "Uploading deployment to New Relic"
+      deployment = NewRelic::Cli::Deployments.new deploy_options
+      deployment.run
+      info "Uploaded deployment information to New Relic"
+    end
+
+  end
+
+
+end
