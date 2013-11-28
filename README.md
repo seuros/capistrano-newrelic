@@ -22,10 +22,12 @@ Or install it yourself as:
 
 
 Configurable options, shown here with defaults:
+
       set :newrelic_env, fetch(:rack_env, fetch(:rails_env, 'production'))
       set :newrelic_appname, fetch(:application)
 
 Mandatory options:
+
       :newrelic_license_key
 
 ## Contributing
