@@ -21,7 +21,7 @@ namespace :newrelic do
           :changelog => fetch(:newrelic_changelog),
           :description => fetch(:newrelic_desc),
           :appname => fetch(:newrelic_appname),
-          :user => capture ('git config user.name').strip,
+          :user => capture('git config user.name').strip,
           :license_key => fetch(:newrelic_license_key)
       }
 
