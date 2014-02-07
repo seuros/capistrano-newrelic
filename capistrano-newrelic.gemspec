@@ -6,8 +6,8 @@ require 'capistrano/newrelic/version'
 Gem::Specification.new do |spec|
   spec.name          = 'capistrano-newrelic'
   spec.version       = Capistrano::NewRelic::VERSION
-  spec.authors       = ['Abdelkader Boudih', 'Jay Chung']
-  spec.email         = ['terminale@gmail.com', 'woosubc@gmail.com']
+  spec.authors       = ['Abdelkader Boudih', 'Jay Chung', 'James Kahn']
+  spec.email         = ['terminale@gmail.com', 'woosubc@gmail.com', 'james@liet.net']
   spec.description   = %q{New Relic integration for Capistrano 3}
   spec.summary       = %q{New Relic integration for Capistrano}
   spec.homepage      = 'https://github.com/seuros/capistrano-newrelic'

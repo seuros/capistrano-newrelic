@@ -4,8 +4,7 @@ end
 
 namespace :load do
   task :defaults do
-    set :newrelic_env, fetch(:rack_env, fetch(:rails_env, 'production'))
-    set :newrelic_appname, fetch(:application)
+    set :newrelic_env, fetch(:stage, fetch(:rack_env, fetch(:rails_env, 'production')))
   end
 end
 
@@ -20,11 +19,8 @@ namespace :newrelic do
           :revision => release_timestamp.strip,
           :changelog => fetch(:newrelic_changelog),
           :description => fetch(:newrelic_desc),
-          :appname => fetch(:newrelic_appname),
           :user => capture('git config user.name').strip,
-          :license_key => fetch(:newrelic_license_key)
       }
-
 
       debug "Uploading deployment to New Relic"
       deployment = NewRelic::Cli::Deployments.new deploy_options

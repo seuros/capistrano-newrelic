@@ -20,15 +20,16 @@ Or install it yourself as:
 
         require 'capistrano/newrelic'
 
+License key and application name are retrieved from newrelic.yml.
 
 Configurable options, shown here with defaults:
 
-      set :newrelic_env, fetch(:rack_env, fetch(:rails_env, 'production'))
-      set :newrelic_appname, fetch(:application)
-
-Mandatory options:
-
-      :newrelic_license_key
+      # New Relic environment to deploy to. Sets config based on section of newrelic.yml
+      set :newrelic_env, fetch(:stage, fetch(:rack_env, fetch(:rails_env, 'production')))
+      # Deployment changelog
+      set :newrelic_changelog, ""
+      # Deployment description
+      set :newrelic_desc, ""
 
 ## Contributing
 
