@@ -33,6 +33,12 @@ Configurable options, shown here with defaults:
       # Deploy user if set will be used instead of the VCS user.
       set :newrelic_deploy_user
 
+## Contributors
+
+- [Bryan Ricker] (https://github.com/bricker)
+- [James Kahn] (https://github.com/jisk)
+- [Wojciech Wnętrzak] (https://github.com/morgoth)
+
 ## Contributing
 
 1. Fork it
