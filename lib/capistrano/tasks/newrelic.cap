@@ -14,13 +14,23 @@ namespace :newrelic do
     set :newrelic_appname, fetch(:application)
     run_locally do
       deploy_options = {
-        :environment => fetch(:newrelic_env),
-        :revision    => release_timestamp.strip,
-        :changelog   => fetch(:newrelic_changelog),
-        :description => fetch(:newrelic_desc)
+          :environment => fetch(:newrelic_env),
+          :revision => release_timestamp.strip,
+          :changelog => fetch(:newrelic_changelog),
+          :description => fetch(:newrelic_desc),
+          :user => fetch(:newrelic_deploy_user)
       }
-      git_user = capture('git config user.name', raise_on_non_zero_exit: false).strip
-      deploy_options[:user] = git_user unless git_user.empty?
+
+      if deploy_options[:user].nil?
+        case fetch(:scm)
+          when :git
+            debug 'was here'
+            git_user = capture('git config user.name', raise_on_non_zero_exit: false).strip
+            deploy_options[:user] ||= git_user unless git_user.empty?
+          else
+            debug '[Capistrano3-newrelic] : Unsupported SCM , user not set. Please set :newrelic_deploy_user'
+        end
+      end
 
       debug "Uploading deployment to New Relic"
       deployment = NewRelic::Cli::Deployments.new deploy_options

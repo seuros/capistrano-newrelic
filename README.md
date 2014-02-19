@@ -30,6 +30,8 @@ Configurable options, shown here with defaults:
       set :newrelic_changelog, ""
       # Deployment description
       set :newrelic_desc, ""
+      # Deploy user if set will be used instead of the VCS user.
+      set :newrelic_deploy_user
 
 ## Contributing
 
