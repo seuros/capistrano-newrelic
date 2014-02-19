@@ -24,7 +24,6 @@ namespace :newrelic do
       if deploy_options[:user].nil?
         case fetch(:scm)
           when :git
-            debug 'was here'
             git_user = capture('git config user.name', raise_on_non_zero_exit: false).strip
             deploy_options[:user] ||= git_user unless git_user.empty?
           else
