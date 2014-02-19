@@ -19,7 +19,7 @@ namespace :newrelic do
           :revision => release_timestamp.strip,
           :changelog => fetch(:newrelic_changelog),
           :description => fetch(:newrelic_desc),
-          :user => capture('git config user.name').strip,
+          :user => capture('git config user.name').strip
       }
 
       debug "Uploading deployment to New Relic"
