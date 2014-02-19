@@ -13,22 +13,19 @@ namespace :newrelic do
   task :notice_deployment do
     set :newrelic_appname, fetch(:application)
     run_locally do
-
       deploy_options = {
-          :environment => fetch(:newrelic_env),
-          :revision => release_timestamp.strip,
-          :changelog => fetch(:newrelic_changelog),
-          :description => fetch(:newrelic_desc),
-          :user => capture('git config user.name').strip
+        :environment => fetch(:newrelic_env),
+        :revision    => release_timestamp.strip,
+        :changelog   => fetch(:newrelic_changelog),
+        :description => fetch(:newrelic_desc)
       }
+      git_user = capture('git config user.name', raise_on_non_zero_exit: false).strip
+      deploy_options[:user] = git_user unless git_user.empty?
 
       debug "Uploading deployment to New Relic"
       deployment = NewRelic::Cli::Deployments.new deploy_options
       deployment.run
       info "Uploaded deployment information to New Relic"
     end
-
   end
-
-
 end
