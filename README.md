@@ -36,19 +36,21 @@ Configurable options, shown here with defaults:
 ## Changelog
 0.0.8:
  - Hook was removed, please set it in your deploy.rb or deploy/'stage'.rb
-    ```ruby
+
+
         namespace :deploy do
           before :finished, 'newrelic:notice_deployment'
         end
-    ```
+
  - Revision can be set with :
-    ```ruby
+
+
         set :newrelic_revision, "Your text here"
-    ```
+
     or
-    ```shell
+
         $ NEWRELIC_REVISION='Your text here' bundle exe cap ....
-    ```
+
 
 ## Contributors
 
