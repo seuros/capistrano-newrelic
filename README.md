@@ -33,6 +33,23 @@ Configurable options, shown here with defaults:
       # Deploy user if set will be used instead of the VCS user.
       set :newrelic_deploy_user
 
+## Changelog
+0.0.8:
+ - Hook was removed, please set it in your deploy.rb or deploy/'stage'.rb
+    ```ruby
+        namespace :deploy do
+          before :finished, 'newrelic:notice_deployment'
+        end
+    ```
+ - Revision can be set with :
+    ```ruby
+        set :newrelic_revision, "Your text here"
+    ```
+    or
+    ```shell
+        $ NEWRELIC_REVISION='Your text here' bundle exe cap ....
+    ```
+
 ## Contributors
 
 - [Bryan Ricker] (https://github.com/bricker)

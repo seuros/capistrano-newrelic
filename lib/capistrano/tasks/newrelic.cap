@@ -1,10 +1,7 @@
-namespace :deploy do
-  before :finished, 'newrelic:notice_deployment'
-end
-
 namespace :load do
   task :defaults do
-    set :newrelic_env, fetch(:stage, fetch(:rack_env, fetch(:rails_env, 'production')))
+    set :newrelic_env, fetch(:stage, fetch(:rack_env, fetch(:rails_env, fetch(:stage))))
+    set :_newrelic_revision, -> { ENV['NEWRELIC_REVISION'] || fetch(:newrelic_revision, release_timestamp.strip) }
   end
 end
 
@@ -15,7 +12,7 @@ namespace :newrelic do
     run_locally do
       deploy_options = {
           :environment => fetch(:newrelic_env),
-          :revision => release_timestamp.strip,
+          :revision => fetch(:_newrelic_revision),
           :changelog => fetch(:newrelic_changelog),
           :description => fetch(:newrelic_desc),
           :user => fetch(:newrelic_deploy_user)
