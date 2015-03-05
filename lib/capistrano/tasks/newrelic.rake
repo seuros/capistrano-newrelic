@@ -1,19 +1,24 @@
-namespace :load do
-  task :defaults do
-    set :newrelic_env, fetch(:stage, fetch(:rack_env, fetch(:rails_env, fetch(:stage))))
-    set :_newrelic_revision, -> { ENV['NEWRELIC_REVISION'] || fetch(:newrelic_revision, release_timestamp.strip) }
-  end
-end
+require 'newrelic_rpm'
+require 'new_relic/cli/command'
 
 namespace :newrelic do
   desc "Record a deployment in New Relic (newrelic.com)"
   task :notice_deployment do
     set :newrelic_appname, fetch(:application)
+    changelog = fetch :newrelic_changelog
+    if changelog.nil? && fetch(:scm) == :git
+      on primary(:app) do
+        within repo_path do
+          changelog = capture(:git, "log --no-color --pretty=format:'* %an: %s' --abbrev-commit --no-merges #{fetch(:previous_revision)[/^.*$/]}..#{fetch(:current_revision)}")
+        end
+      end
+    end
+
     run_locally do
       deploy_options = {
-          :environment => fetch(:newrelic_env),
-          :revision => fetch(:_newrelic_revision),
-          :changelog => fetch(:newrelic_changelog),
+          :environment => fetch(:newrelic_env, fetch(:stage, fetch(:rack_env, fetch(:rails_env, fetch(:stage))))),
+          :revision => ENV['NEWRELIC_REVISION'] || fetch(:newrelic_revision, fetch(:current_revision, release_timestamp.strip)),
+          :changelog => changelog,
           :description => fetch(:newrelic_desc),
           :user => fetch(:newrelic_deploy_user)
       }
@@ -24,7 +29,7 @@ namespace :newrelic do
             git_user = capture('git config user.name', raise_on_non_zero_exit: false).strip
             deploy_options[:user] = git_user unless git_user.empty?
           else
-            debug '[Capistrano-newrelic] : Unsupported SCM , user not set. Please set :newrelic_deploy_user'
+            deploy_options[:user] = ENV['USER']
         end
       end
 
@@ -40,3 +45,4 @@ namespace :newrelic do
     end
   end
 end
+
