@@ -52,6 +52,9 @@ Configurable options, shown here with defaults:
 
 ## Changelog
 
+0.0.10:
+   * Use git --no-pager option when printing the log
+
 0.0.9:
    * Added changelog capture for git
    * Populate revision with `current_revision` from scm if available;
@@ -71,13 +74,6 @@ Configurable options, shown here with defaults:
    ```ruby
    $ NEWRELIC_REVISION='Your text here' bundle exe cap ....
    ```
-
-## Contributors
-
-- [Bryan Ricker] (https://github.com/bricker)
-- [James Kahn] (https://github.com/jisk)
-- [Wojciech Wnętrzak] (https://github.com/morgoth)
-- [Bill Kayser (New Relic)] (https://github.com/bkayser)
 
 ## Contributing
 
