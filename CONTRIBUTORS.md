@@ -3,3 +3,4 @@
 - [Wojciech Wnętrzak] (https://github.com/morgoth)
 - [Bill Kayser (New Relic)] (https://github.com/bkayser)
 - [Derek Schneider] (https://github.com/schneiderderek)
+- [Nathan Parry] (https://github.com/nparry)
