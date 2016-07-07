@@ -1,3 +1,4 @@
+[![Gem Version](https://badge.fury.io/rb/capistrano-newrelic.svg)](https://badge.fury.io/rb/capistrano-newrelic)
 # Capistrano::Newrelic
 
 
