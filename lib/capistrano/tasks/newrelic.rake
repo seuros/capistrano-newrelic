@@ -4,7 +4,7 @@ require 'new_relic/cli/command'
 namespace :newrelic do
   desc "Record a deployment in New Relic (newrelic.com)"
   task :notice_deployment do
-    set :newrelic_appname, fetch(:application)
+    set :newrelic_appname, fetch(:nr_app_name) || fetch(:application)
     changelog = fetch :newrelic_changelog
     if changelog.nil? && fetch(:scm) == :git && !fetch(:previous_revision).nil?
       on primary(:app) do
