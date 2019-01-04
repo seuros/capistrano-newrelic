@@ -39,7 +39,7 @@ Configurable options, shown here with defaults:
 
 ```ruby
       # New Relic Application Name to deploy to.  Default to :application if no value set
-      set :nr_app_name, ""
+      set :newrelic_appname, ""
 
       # New Relic environment to deploy to. Sets config based on section of newrelic.yml
       set :newrelic_env, fetch(:stage, fetch(:rack_env, fetch(:rails_env, 'production')))
