@@ -20,7 +20,7 @@ namespace :newrelic do
           :revision => ENV['NEWRELIC_REVISION'] || fetch(:newrelic_revision, fetch(:current_revision, release_timestamp.strip)),
           :description => fetch(:newrelic_desc),
           :user => fetch(:newrelic_deploy_user),
-          :appname => fetch(:newrelic_appname,fetch(:application))
+          :appname => fetch(:newrelic_appname,fetch(:application)),
           :license_key => fetch(:newrelic_key)
       }
 
